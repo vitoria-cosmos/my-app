@@ -1,24 +1,43 @@
 import React from 'react';
 
-const Bemvindo = (props) => {
+const Equipe = (props) => {
     return(
         <div>
-            <h1>Bem-vindo(a) {props.nome}</h1>
-            <h3>Tenho {props.anos} anos</h3>
+            <Sobre nome={props.nome} cargo={props.cargo} idade={props.idade}/>
+            <Social fb={props.fb} lk={props.lk}/>
             <hr/>
         </div>
     );
 }
 
-function App() {
+const Sobre = (props) => {
     return(
         <div>
-            Olá Mundo
-            <Bemvindo nome="Lucas" anos="24"/>
-            <Bemvindo nome="Amanda" anos="21"/>
-            <Bemvindo nome="Vitoria" anos="19"/>
+            <h1>Olá, meu nome é {props.nome}</h1>
+            <h2>Tenho {props.idade}</h2>
+            <h2>Sou {props.cargo}</h2>
         </div>
     );
+}
+
+const Social = (props) => {
+    return(
+        <div>
+            <h2>Minhas redes sociais:</h2>
+            <a href={props.fb}>Facebook</a> <br/>
+            <a href={props.lk}>LinkedIn</a>
+        </div>
+    );
+}
+
+function App() {
+    return (
+        <div>
+            <Equipe nome="Lucas" cargo="Data Engineer" idade="25" fb="https://www.facebook.com/" lk="https://www.linkedin.com/"/>
+            <Equipe nome="Vitoria" cargo="Software Engineer" idade="24" fb="https://www.facebook.com/" lk="https://www.linkedin.com/"/>
+            <Equipe nome="Gabrielle" cargo="Front-end Developer" idade="23" fb="https://www.facebook.com/" lk="https://www.linkedin.com/"/>
+        </div>
+    )
 }
 
 export default App;
