@@ -1,13 +1,12 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 
-class App extends Component{
-    constructor(props) {
-        super(props);
+class App extends Component {
+    constructor() {
+        super();
         this.state = {
-            nome: 'Matheus',
+            nome: 'Vitoria',
             contador: 0
-        };
-
+        }
         this.aumentar = this.aumentar.bind(this);
         this.diminuir = this.diminuir.bind(this);
     }
@@ -15,31 +14,26 @@ class App extends Component{
     aumentar() {
         let state = this.state;
         state.contador += 1;
-        state.nome = 'José';
         this.setState(state);
     }
 
     diminuir() {
         let state = this.state;
-        if(state.contador === 0) {
-            alert('Opa, chegou a zero!');
+        if (state.contador === 0) {
+            alert('Opa, chegou ao zero!');
             return;
-            // o return faz com que a função diminuir seja interrompida.
         }
         state.contador -= 1;
         this.setState(state);
-
     }
-    render(){
+    render() {
         return (
             <div>
                 <h1>Contador</h1>
-                {this.state.nome}
-                <h3>
-                    <button onClick={this.diminuir}>-</button>
-                    {this.state.contador}
-                    <button onClick={this.aumentar}>+</button>
-                </h3>               
+                <button onClick={this.diminuir}>-</button>
+                {this.state.contador}
+                <button onClick={this.aumentar}>+</button>
+
             </div>
         );
     }
