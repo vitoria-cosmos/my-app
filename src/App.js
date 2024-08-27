@@ -1,95 +1,48 @@
-// import React, { Component } from 'react';
+import React, { Component} from 'react';
 
-// class Equipe extends Component {
-//     render() {
-//         return(
-//             <div>
-//                 <Sobre nome={this.props.nome} cargo={this.props.cargo} idade={this.props.idade}/>
-//                 <Social/>
-//                 <hr/>
-//             </div>
-//         );
-//     }
-// }
+class App extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            nome: 'Matheus',
+            contador: 0
+        };
 
-// class Sobre extends Component {
-//     render() {
-//         return(
-//             <div>
-//                 <h2>Olá, sou o(a) {this.props.nome}</h2>
-//                 <h3>Cargo: {this.props.cargo}</h3>
-//                 <h3>Idade: {this.props.idade} anos</h3>
-//             </div>
-//         );
-//     }
-// }
+        this.aumentar = this.aumentar.bind(this);
+        this.diminuir = this.diminuir.bind(this);
+    }
 
-// const Social = () => {
-//     return (
-//         <div>
-//             <a>Faceboook</a> <br/>
-//             <a>LinkedIn</a>
-//         </div>
-//     );
-// }
+    aumentar() {
+        let state = this.state;
+        state.contador += 1;
+        state.nome = 'José';
+        this.setState(state);
+    }
 
-// function App() {
-//     return (
-//         <div>
-//             <h1>Conheça nossa equipe:</h1>
-//             <Equipe nome="Matheus" cargo="Programador" idade="24"/>
-//             <Equipe nome="Vitoria" cargo="Software Engineer" idade="25"/>
-//         </div>
-//     );
-// }
+    diminuir() {
+        let state = this.state;
+        if(state.contador === 0) {
+            alert('Opa, chegou a zero!');
+            return;
+            // o return faz com que a função diminuir seja interrompida.
+        }
+        state.contador -= 1;
+        this.setState(state);
 
-// export default App;
-
-import React, { Component } from 'react';
-
-class Equipe extends Component {
-    render() {
-        return(
+    }
+    render(){
+        return (
             <div>
-                <Sobre nome={this.props.nome} cargo={this.props.cargo} idade={this.props.idade}/>
-                <Social/>
-                <hr/>
+                <h1>Contador</h1>
+                {this.state.nome}
+                <h3>
+                    <button onClick={this.diminuir}>-</button>
+                    {this.state.contador}
+                    <button onClick={this.aumentar}>+</button>
+                </h3>               
             </div>
         );
     }
-}
-
-class Sobre extends Component {
-    render() {
-        return(
-            <div>
-                <h1>Olá, sou o(a) {this.props.nome}</h1>
-                <h3>Cargo: {this.props.cargo}</h3>
-                <h3>Idade: {this.props.idade}</h3>
-            </div>
-        )
-    }
-}
-
-class Social extends Component {
-    render() {
-        return(
-            <div>
-                <h2>Minhas redes sociais:</h2>
-                <a>Facebook</a>
-                <a>LinkedIn</a>
-            </div>
-        );
-    }
-}
-
-function App() {
-    return (
-        <div>
-            <Equipe nome="Marllon" cargo="Programador" idade="22"/>
-            <Equipe nome="Vitoria" cargo="Engenheira de Software" idade="25"/>
-        </div>
-    );
 }
 
 export default App;
