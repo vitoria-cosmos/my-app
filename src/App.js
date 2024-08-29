@@ -1,57 +1,45 @@
-// aula 41 - renderização consicional
-//  vamos renderizar uma coisa ou outra dentro do componente
-
 import React, { Component } from 'react';
+import Feed from '../src/components2/Feed';
 
 class App extends Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     status: 2
-        // };
-
         this.state = {
-            // booleano
-            status: false
+            feed: [
+                {id: 1, username: 'Matheus', curtidas: 10, comentarios: 2},
+                {id: 2, username: 'Lucas', curtidas: 120, comentarios: 24},
+                {id: 3, username: 'Amanda', curtidas: 30, comentarios: 12}
+            ]
         };
-
-        this.entrar = this.entrar.bind(this);
-        this.sair = this.sair.bind(this);
-    }
-
-    sair() {
-        this.setState({status: false});   
-    }
-
-    entrar() {
-        this.setState({status: true});
     }
     render() {
         return (
+            // forma sem o componente separado
+            // <div>
+            //     {/* o map roda a lista e passa por objeto por objeto */}
+            //     {this.state.feed.map((item) => {
+            //         return (
+            //             // temos que passar essa key para o react não reclamar.
+            //             // agora cada div tem um id unico
+            //             <div key={item.id}>
+            //                 <h3>{item.username}</h3>
+            //                 <a>{item.curtidas} curtidas/ 
+            //                     {item.comentarios} comentarios</a>
+            //             </div>
+            //         )
+            //     })}
+            // </div>
             <div>
-                {/* renderização consicional 1 */}
-                {/* {
-                    this.state.status === 1 &&
-                    // se o status for 1, vai ser renderizado o h1
-                    <h1>Bem-vindo ao sistema!</h1>
-                } */}
-
-                {/* renderização condicional 2 - comparação com operador ternário */}
-                {/* aqui ele vai verificar com o operador tenário se a pessoa está logada ou não */}
-                <div>
-                    {this.state.status ? 
-                    <div>
-                        <h2>Bem-vindo ao sistema</h2>
-                        <button onClick={this.sair}>Sair do sistema</button>
-                    </div> : 
-                    <div>
-                        <h2>Olá visitante, faça o login!</h2>
-                        <button onClick={this.entrar}>Entrar no sistema</button>
-                    </div>
-
-                    }
-                </div>
-                {/* <h2>Curso React JS</h2> */}
+                {this.state.feed.map((item) => {
+                    return (
+                        <Feed
+                        id={item.id}
+                        username={item.username}
+                        curtidas={item.curtidas}
+                        comentarios={item.comentarios}
+                        />
+                    )
+                })}
             </div>
         );
     }
