@@ -1,45 +1,66 @@
 import React, { Component } from 'react';
-import Feed from '../src/components2/Feed';
 
 class App extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            feed: [
-                {id: 1, username: 'Matheus', curtidas: 10, comentarios: 2},
-                {id: 2, username: 'Lucas', curtidas: 120, comentarios: 24},
-                {id: 3, username: 'Amanda', curtidas: 30, comentarios: 12}
-            ]
+            email: '',
+            senha: '',
+            sexo: 'masculino'
         };
+        this.trocaEmail = this.trocaEmail.bind(this);
+        this.trocaSexo = this.trocaSexo.bind(this);
     }
+
+    trocaEmail(e) {
+        // a gnt recebe por parametro um evento que podemos acessar o valor que a pessoa digitou
+        let valorDigitado = e.target.value;
+        // target significa qual que é o input que a gente está mirando e value é o valor que foi digitado
+        this.setState({email: valorDigitado});
+
+    }
+
+    trocaSexo(e) {
+        let valorDigitado = e.target.value;
+        this.setState({sexo: valorDigitado});
+    }
+
     render() {
-        return (
-            // forma sem o componente separado
-            // <div>
-            //     {/* o map roda a lista e passa por objeto por objeto */}
-            //     {this.state.feed.map((item) => {
-            //         return (
-            //             // temos que passar essa key para o react não reclamar.
-            //             // agora cada div tem um id unico
-            //             <div key={item.id}>
-            //                 <h3>{item.username}</h3>
-            //                 <a>{item.curtidas} curtidas/ 
-            //                     {item.comentarios} comentarios</a>
-            //             </div>
-            //         )
-            //     })}
-            // </div>
+        return ( 
             <div>
-                {this.state.feed.map((item) => {
-                    return (
-                        <Feed
-                        id={item.id}
-                        username={item.username}
-                        curtidas={item.curtidas}
-                        comentarios={item.comentarios}
-                        />
-                    )
-                })}
+                <h2>Login</h2>
+
+
+                Email: 
+                <input type='email' name='email' value={this.state.email}
+                // onChange - é quando houver mudanças a gente faz alguma coisa, chamar uma função ou alterar o valor desta state
+                onChange={this.trocaEmail}
+                />
+                <br/>
+
+
+                Senha:
+                <input type='password' name='senha' value={this.state.senha} 
+                onChange={(e) => this.setState({senha: e.target.value})}
+                // da mesma forma, aqui vamos poder mudar o valor do campo por meio do onChange, pegamos o que o usuário digitou e setamos o estado
+                />
+                <br/>
+
+                Sexo:
+                <select name='sexo' value={this.state.sexo} onChange={this.trocaSexo}>
+                    {/* esse value= fica fixo, pra podermos trocar, temos que utilizar o onChange */}
+                    <option value='masculino'>Masculino</option>
+                    <option value='faminino'>Feminino</option>
+
+                </select>
+                <div>
+                    {this.state.email} <br/>
+                    {this.state.senha} <br/>
+                    {this.state.sexo}
+                </div>
+
+                
             </div>
         );
     }
