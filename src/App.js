@@ -5,62 +5,56 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            nome: '',
             email: '',
-            senha: '',
-            sexo: 'masculino'
+            senha: ''
+
         };
-        this.trocaEmail = this.trocaEmail.bind(this);
-        this.trocaSexo = this.trocaSexo.bind(this);
+
+        this.cadastrar = this.cadastrar.bind(this);
     }
 
-    trocaEmail(e) {
-        // a gnt recebe por parametro um evento que podemos acessar o valor que a pessoa digitou
-        let valorDigitado = e.target.value;
-        // target significa qual que é o input que a gente está mirando e value é o valor que foi digitado
-        this.setState({email: valorDigitado});
+    cadastrar(event) {
+        // vamos receber um evento
 
-    }
+        const {nome, email, senha} = this.state;
+        // estamos cada objeto e armazenado em uma const
+        alert(`Nome: ${nome} \n Email: ${email} \nSenha: ${senha}`);
+        // aqui estamos mostrando todas as states
+        // \n é para quebrar linha
 
-    trocaSexo(e) {
-        let valorDigitado = e.target.value;
-        this.setState({sexo: valorDigitado});
+        // alert(nome);
+        // vamos mostrar na tela somente a variável nome
+
+        event.preventDefault();
+        // aqui é para que a nossa página não seja atualizada
     }
 
     render() {
-        return ( 
+        return(
             <div>
-                <h2>Login</h2>
+                <h1>Novo usuário</h1>
 
+                <form onSubmit={this.cadastrar}>
+                    {/* prop onSubmit - podemos chamar uma função anonima ou uma função que criamos*/}
+                    <label>Nome:</label>
+                    <input type='text' value={this.state.nome}
+                    onChange={(e) => this.setState({nome: e.target.value})}/>
+                    <br/>
+                    
 
-                Email: 
-                <input type='email' name='email' value={this.state.email}
-                // onChange - é quando houver mudanças a gente faz alguma coisa, chamar uma função ou alterar o valor desta state
-                onChange={this.trocaEmail}
-                />
-                <br/>
+                    <label>Email:</label>
+                    <input type='email' value={this.state.email} onChange={(e) => this.setState({email: e.target.value})}/>
+                    <br/>
 
+                    <label>Senha:</label>
+                    <input type='password' value={this.state.senha} onChange={(e) => this.setState({senha: e.target.value})}/>
+                    <br/>
 
-                Senha:
-                <input type='password' name='senha' value={this.state.senha} 
-                onChange={(e) => this.setState({senha: e.target.value})}
-                // da mesma forma, aqui vamos poder mudar o valor do campo por meio do onChange, pegamos o que o usuário digitou e setamos o estado
-                />
-                <br/>
+                    <button type='submit'>Cadastrar</button>
+                    {/* quando temos um botão do tipo submit dentro de um form com onSubmit, ele chama a função que está dentro de onSubmit */}
 
-                Sexo:
-                <select name='sexo' value={this.state.sexo} onChange={this.trocaSexo}>
-                    {/* esse value= fica fixo, pra podermos trocar, temos que utilizar o onChange */}
-                    <option value='masculino'>Masculino</option>
-                    <option value='faminino'>Feminino</option>
-
-                </select>
-                <div>
-                    {this.state.email} <br/>
-                    {this.state.senha} <br/>
-                    {this.state.sexo}
-                </div>
-
-                
+                </form>
             </div>
         );
     }
