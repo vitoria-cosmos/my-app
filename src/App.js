@@ -1,69 +1,54 @@
 import React, { Component } from 'react';
+import './style.css';
 
 class App extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
-            form: {
-                nome: '',
-                email: '',
-                senha: '',
-                sexo: ''
-            }
+            textoFrase: ''
         };
+        this.frases = [
+            'Siga os bons e aprenda com eles.', 
+            'Cuidado com o seu corpo e a sua saúde.',
+            'A força vem da perseverança.',
+            'Você é mais importante do que você pensa.',
+            'Amar é a coisa mais importante que você possa ser.'
+        ];
 
-        // uma função que muda os dados de cada campo, quando chamada
-        this.dadosForm= this.dadosForm.bind(this);
-        
+        this.quebraBiscoito = this.quebraBiscoito.bind(this);
     }
 
-    dadosForm(e) {
-        // o e é valor de cada campo que está sendo modificado. O react pega esse valor automaticamente
-        let form = this.state.form;
-        form[e.target.name] = e.target.value;
-        // esse e.target.name é o valor do campo, e o .name é o name do campo
-        // estamos usando colchete para acessar os atributos dos inputs
-        this.setState({form: form});
-        // atualiza as mudanças feitas nos campos
-    }
+    quebraBiscoito() {
+        let state = this.state;
+        let numeroAleatorio = Math.floor(Math.random() * this.frases.length);
+        // aqui vai ser gerado um número aleatório de 0 até o tamanho máximo da array
 
+        state.textoFrase = '" ' + this.frases[numeroAleatorio] + ' "';
+        // aqui ele vai pegar por meio do indice de um elemento da lista uma frase aleatória
+
+        this.setState(state);
+        // aqui atualizamos a state com a frase que foi sorteada
+    }
     render() {
-        return ( 
+        return (
+            <div className='container'>
+                <img src={require('./assets/cookie01.jpg')} className='img' alt='biscoito da sorte'/>
+                {/* aqui estamos acessando o endereço da imagem */}
+                <Botao nome='abrir biscoito' acaoBtn={this.quebraBiscoito}/>
+                {/* aqui estamos criando uma ação que vai chamar uma função */}
+                <h3 className='textoFrase'>{this.state.textoFrase}</h3>
+
+            </div>
+        );
+    }
+}
+
+class Botao extends Component {
+    render() {
+        return (
             <div>
-                <h2>Login</h2>
-                Nome:
-                <input type='text' name='nome' value={this.state.form.nome} onChange={this.dadosForm}></input>
-                <br/>
-                Email: 
-                <input type='email' name='email' value={this.state.form.email}
-                // onChange - é quando houver mudanças a gente faz alguma coisa, chamar uma função ou alterar o valor desta state
-                onChange={this.dadosForm}
-                />
-                <br/>
-
-
-                Senha:
-                <input type='password' name='senha' value={this.state.form.senha} 
-                onChange={this.dadosForm}
-                // da mesma forma, aqui vamos poder mudar o valor do campo por meio do onChange, pegamos o que o usuário digitou e setamos o estado
-                />
-                <br/>
-
-                Sexo:
-                <select name='sexo' value={this.state.form.sexo} onChange={this.dadosForm}>
-                    {/* esse value= fica fixo, pra podermos trocar, temos que utilizar o onChange */}
-                    <option value='masculino'>Masculino</option>
-                    <option value='faminino'>Feminino</option>
-
-                </select>
-                <div>
-                    {this.state.form.email} <br/>
-                    {this.state.form.senha} <br/>
-                    {this.state.form.sexo}
-                </div>
-
-                
+                <button onClick={this.props.acaoBtn}>{this.props.nome}</button>
+                {/* aqui estamos usando a ação que criamos  */}
             </div>
         );
     }
