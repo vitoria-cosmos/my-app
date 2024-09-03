@@ -1,57 +1,69 @@
 import React, { Component } from 'react';
 
 class App extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            nome: '',
-            email: '',
-            senha: '',
-            error: ''
+            form: {
+                nome: '',
+                email: '',
+                senha: '',
+                sexo: ''
+            }
         };
 
-        this.cadastrar = this.cadastrar.bind(this);
+        // uma função que muda os dados de cada campo, quando chamada
+        this.dadosForm= this.dadosForm.bind(this);
+        
     }
 
-    cadastrar(event) {
-        // recebe um evento para que possamos ter controle dos dados recarregados
-        const {nome, email, senha } = this.state;
-        if (nome !== '' && email !== '' && senha !== '') {
-            alert(`Nome: ${nome} \nEmail: ${email} \nSenha: ${senha}`);
-        } else {
-            this.setState({error: 'Ops! Parece que está faltando algo!'});
-        }
-        event.preventDefault();
-            // estamos prevenindo com que a página seja recarregada
+    dadosForm(e) {
+        // o e é valor de cada campo que está sendo modificado. O react pega esse valor automaticamente
+        let form = this.state.form;
+        form[e.target.name] = e.target.value;
+        // esse e.target.name é o valor do campo, e o .name é o name do campo
+        // estamos usando colchete para acessar os atributos dos inputs
+        this.setState({form: form});
+        // atualiza as mudanças feitas nos campos
     }
-
 
     render() {
-        return (
+        return ( 
             <div>
-                <h1>Novo usuário</h1>
-                {this.state.error && <p>{this.state.error}</p>}
-                {/* se o state error tiver algum valor, ele vai renderizar este parágrafo */}
-                <form onSubmit={this.cadastrar}>
-                    {/* essa promp serve ara a gente enviar o formulario. Nela podemos chamar uma função anonima ou uma que a gente cria. */}
-                    <label>Nome:</label>
-                    <input type='text' value={this.state.nome} onChange={(e) => this.setState({nome: e.target.value})}></input>
-                    <br/>
-
-                    <label>Email:</label>
-                    <input type='email' value={this.state.email} onChange={(e) => this.setState({email: e.target.value})}></input>
-                    <br/>
-
-                    <label>Senha:</label>
-                    <input type='password' value={this.state.senha} onChange={(e) => this.setState({senha: e.target.value})}></input>
-                    <br/>
-
-                    <button type='submit'>Cadastrar</button>
-                    {/* quando temos um botão do tipo submit, quando apertamos nele, é chamada a função que está dentro de onSubmit */}
+                <h2>Login</h2>
+                Nome:
+                <input type='text' name='nome' value={this.state.form.nome} onChange={this.dadosForm}></input>
+                <br/>
+                Email: 
+                <input type='email' name='email' value={this.state.form.email}
+                // onChange - é quando houver mudanças a gente faz alguma coisa, chamar uma função ou alterar o valor desta state
+                onChange={this.dadosForm}
+                />
+                <br/>
 
 
+                Senha:
+                <input type='password' name='senha' value={this.state.form.senha} 
+                onChange={this.dadosForm}
+                // da mesma forma, aqui vamos poder mudar o valor do campo por meio do onChange, pegamos o que o usuário digitou e setamos o estado
+                />
+                <br/>
 
-                </form>
+                Sexo:
+                <select name='sexo' value={this.state.form.sexo} onChange={this.dadosForm}>
+                    {/* esse value= fica fixo, pra podermos trocar, temos que utilizar o onChange */}
+                    <option value='masculino'>Masculino</option>
+                    <option value='faminino'>Feminino</option>
+
+                </select>
+                <div>
+                    {this.state.form.email} <br/>
+                    {this.state.form.senha} <br/>
+                    {this.state.form.sexo}
+                </div>
+
+                
             </div>
         );
     }
